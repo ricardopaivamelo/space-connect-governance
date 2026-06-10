@@ -47,6 +47,7 @@ Detalhes em [`docs/integration_matrix.md`](docs/integration_matrix.md) e
 | Computação Quântica e IA | SVM × QSVC | Evidência auditada | Reproduzido (5 seeds, leakage corrigido) |
 | Visão Computacional | Classificador wildfire | Evidência auditada | Outputs históricos auditados |
 | PLN, Chatbots e Virtual Agents | Recuperação semântica | Conceitual | Notebook auditado (sem LLM) |
+| Inteligência Artificial Generativa | Camada generativa do assistente documental | Extensão prevista do módulo de PLN | Registrada como evolução da plataforma |
 | Front-End | Painel integrado (este repo) | Integrado (interface) | AppTest sem exceções |
 
 ## Como executar
