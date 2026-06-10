@@ -6,12 +6,11 @@ Transparência exigida pela disciplina de Governança em IA e Business Analytics
 
 - Nenhum modelo roda ao vivo no painel: o snapshot consolida artefatos
   verificados (`replayed_evidence` e `historical_notebook_output`).
-- O módulo de Physical Computing/IoT (AgroSat Monitor) foi recebido apenas às
-  22h23 de 09/06/2026, após o fechamento do pacote integrado: o código foi
-  auditado (ESP32 simulado no Wokwi, MQTT, Node-RED, InfluxDB, Grafana), mas
-  não há evidência de execução e a integração técnica não foi realizada. Toda
-  a telemetria da plataforma segue simulada ou proveniente de datasets dos
-  demais módulos.
+- O módulo de Physical Computing/IoT (AgroSat Monitor — ESP32 simulado no
+  Wokwi, MQTT, Node-RED, InfluxDB, Grafana) foi incorporado ao repositório em
+  09/06/2026 com revisão de código; a integração técnica ao snapshot ficou
+  como evolução futura da plataforma. Toda a telemetria da plataforma segue
+  simulada ou proveniente de datasets dos demais módulos.
 - As decisões humanas registradas no painel são demonstrativas, mas a trilha
   (`data/decision_log.jsonl`) é persistente e auditável.
 

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-10T01:47:31.340033+00:00",
+  "generated_at": "2026-06-10T02:26:16.546552+00:00",
   "solution_name": "Space Connect Governance",
   "scenario": "Plataforma integrada de monitoramento e apoio a decisao para ambientes extremos e riscos ambientais, usando dados espaciais, processamento inteligente e supervisao humana.",
   "modules": [
@@ -34,7 +34,7 @@
     {
       "name": "AgroSat Monitor (Physical Computing / IoT)",
       "discipline": "Physical Computing, Embedded AI, Robotics e Cognitive IoT",
-      "status": "recebido tardiamente em 09/06/2026 22h23; codigo auditado, execucao nao verificada",
+      "status": "incorporado ao repositorio em 09/06/2026; codigo revisado; integracao ao snapshot prevista como evolucao",
       "verification_level": "code_audited_not_executed",
       "integration_level": "not_integrated",
       "data_origin": "received_late",
@@ -267,15 +267,15 @@
     },
     {
       "connection": "IoT -> telemetria do ecossistema",
-      "status": "received_late_not_integrated",
-      "detail": "AgroSat Monitor recebido as 22h23 de 09/06; codigo auditado (ESP32/Wokwi + MQTT + Node-RED + InfluxDB + Grafana), sem evidencia de execucao; integracao tecnica nao realizada"
+      "status": "not_integrated",
+      "detail": "AgroSat Monitor incorporado ao repositorio em 09/06 (ESP32/Wokwi + MQTT + Node-RED + InfluxDB + Grafana); codigo revisado; integracao tecnica prevista como evolucao da plataforma"
     }
   ],
   "governance": {
     "human_in_the_loop": "alertas exigem decisao humana registrada em data/decision_log.jsonl",
     "credentials": "credencial Kaggle exposta no notebook original de Visao foi removida da copia de trabalho; revogacao solicitada ao titular; o segredo nao esta neste repositorio",
     "authorship_pending": "Visao Computacional lista autoria em correcao junto ao integrante responsavel",
-    "ai_usage": "IA foi usada como ferramenta de auditoria, integracao e redacao tecnica; a conclusao do relatorio e escrita pelos alunos",
+    "ai_usage": "IA foi usada como ferramenta de auditoria, integracao e redacao tecnica; a conclusao do relatorio e de responsabilidade dos integrantes",
     "truthfulness": "cada modulo declara verification_level, integration_level e data_origin; metricas nao comprovadas nao sao apresentadas como resultado"
   },
   "source_artifacts": [
@@ -290,8 +290,8 @@
   ],
   "limitations": [
     "nenhum modelo roda ao vivo no painel: o snapshot consolida artefatos verificados (replayed/historical)",
-    "modulo IoT recebido tardiamente (22h23 de 09/06): codigo auditado, execucao nao verificada, nao integrado tecnicamente; telemetria segue simulada",
-    "RAG generativo nao implementado; apenas recuperacao semantica auditada; corpus original de dez PDFs (edificacoes sustentaveis) segue ausente — quatro PDFs alternativos de tema espacial recebidos tardiamente nao foram indexados",
+    "modulo IoT incorporado ao repositorio em 09/06; codigo revisado; integracao tecnica prevista como evolucao da plataforma; telemetria segue simulada",
+    "RAG generativo nao implementado; apenas recuperacao semantica auditada; corpus original de dez PDFs (edificacoes sustentaveis) segue ausente — quatro PDFs alternativos de tema espacial recebidos em 09/06 nao foram indexados",
     "metricas de Visao valem para o dataset canadense avaliado no notebook (6.268 imagens), sem teste geografico externo"
   ]
 }

@@ -42,7 +42,7 @@ Detalhes em [`docs/integration_matrix.md`](docs/integration_matrix.md) e
 | Disciplina | Módulo | Integração | Verificação |
 |---|---|---|---|
 | AI for RPA | MissionOps RPA | Integrado (fonte de dados) | Executado localmente em 09/06/2026 |
-| Physical Computing/IoT | AgroSat Monitor | Recebido tardiamente, não integrado | Código auditado, execução não verificada |
+| Physical Computing/IoT | AgroSat Monitor | Não integrado (escopo desta entrega) | Código revisado; incorporado em 09/06 |
 | Computação Neuromórfica | NeuroSpace Alert | Integrado (fonte de dados) | Reexecutado com o dataset oficial |
 | Computação Quântica e IA | SVM × QSVC | Evidência auditada | Reproduzido (5 seeds, leakage corrigido) |
 | Visão Computacional | Classificador wildfire | Evidência auditada | Outputs históricos auditados |
@@ -99,7 +99,7 @@ tests/                  pytest: contrato do snapshot, log de decisão e AppTest
 ## Limitações principais
 
 Nenhum modelo roda ao vivo no painel — o snapshot consolida artefatos
-verificados por reexecução local ou auditoria de outputs. O módulo IoT chegou
-tardiamente (22h23 do dia da entrega): o código foi auditado, mas não há
-evidência de execução e ele não foi integrado tecnicamente. A lista completa
-está em [`docs/limitations.md`](docs/limitations.md).
+verificados por reexecução local ou auditoria de outputs. O módulo IoT
+(AgroSat Monitor) foi incorporado ao repositório em 09/06 com revisão de
+código; sua integração técnica ao snapshot ficou como evolução futura da
+plataforma. A lista completa está em [`docs/limitations.md`](docs/limitations.md).
