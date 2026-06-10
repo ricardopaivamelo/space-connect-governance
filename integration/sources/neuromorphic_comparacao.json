@@ -1,0 +1,100 @@
+{
+  "dataset_rows": 61,
+  "condicao_real": {
+    "NORMAL": 31,
+    "CRITICA": 21,
+    "ATENCAO": 9
+  },
+  "comparacoes": [
+    {
+      "origem": "base",
+      "ajuste": "A_base",
+      "V_limiar": 24,
+      "taxa_chaveamento": 0.006,
+      "V_entrada_min": 16.01,
+      "V_entrada_max": 37.17,
+      "primeiro_nao_apagado_min": 170,
+      "primeiro_vermelho_min": 190,
+      "accuracy_vs_condicao_real": 0.918033,
+      "macro_f1_vs_condicao_real": 0.841259,
+      "normal": 34,
+      "observacao": 4,
+      "alerta_critico": 23
+    },
+    {
+      "origem": "base",
+      "ajuste": "B_base",
+      "V_limiar": 28,
+      "taxa_chaveamento": 0.005,
+      "V_entrada_min": 16.01,
+      "V_entrada_max": 37.17,
+      "primeiro_nao_apagado_min": 205,
+      "primeiro_vermelho_min": 225,
+      "accuracy_vs_condicao_real": 0.770492,
+      "macro_f1_vs_condicao_real": 0.575325,
+      "normal": 41,
+      "observacao": 4,
+      "alerta_critico": 16
+    },
+    {
+      "origem": "base",
+      "ajuste": "C_base",
+      "V_limiar": 32,
+      "taxa_chaveamento": 0.004,
+      "V_entrada_min": 16.01,
+      "V_entrada_max": 37.17,
+      "primeiro_nao_apagado_min": 245,
+      "primeiro_vermelho_min": 280,
+      "accuracy_vs_condicao_real": 0.590164,
+      "macro_f1_vs_condicao_real": 0.386538,
+      "normal": 49,
+      "observacao": 7,
+      "alerta_critico": 5
+    },
+    {
+      "origem": "entrega",
+      "ajuste": "A_entrega",
+      "V_limiar": 25,
+      "taxa_chaveamento": 0.0065,
+      "V_entrada_min": 12.0,
+      "V_entrada_max": 45.6057,
+      "primeiro_nao_apagado_min": 190,
+      "primeiro_vermelho_min": 215,
+      "accuracy_vs_condicao_real": 0.836066,
+      "macro_f1_vs_condicao_real": 0.702447,
+      "normal": 38,
+      "observacao": 5,
+      "alerta_critico": 18
+    },
+    {
+      "origem": "entrega",
+      "ajuste": "B_entrega",
+      "V_limiar": 29,
+      "taxa_chaveamento": 0.0055,
+      "V_entrada_min": 12.0,
+      "V_entrada_max": 45.6057,
+      "primeiro_nao_apagado_min": 215,
+      "primeiro_vermelho_min": 240,
+      "accuracy_vs_condicao_real": 0.721311,
+      "macro_f1_vs_condicao_real": 0.534181,
+      "normal": 43,
+      "observacao": 5,
+      "alerta_critico": 13
+    },
+    {
+      "origem": "entrega",
+      "ajuste": "C_entrega",
+      "V_limiar": 33,
+      "taxa_chaveamento": 0.004,
+      "V_entrada_min": 12.0,
+      "V_entrada_max": 45.6057,
+      "primeiro_nao_apagado_min": 250,
+      "primeiro_vermelho_min": 290,
+      "accuracy_vs_condicao_real": 0.557377,
+      "macro_f1_vs_condicao_real": 0.338477,
+      "normal": 50,
+      "observacao": 8,
+      "alerta_critico": 3
+    }
+  ]
+}

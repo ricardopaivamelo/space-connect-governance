@@ -1,0 +1,10 @@
+{
+  "module": "rag",
+  "data_origin": "historical_notebook_output",
+  "description": "Componente de recuperacao semantica (PLN): leitura de PDFs, chunking, embeddings, indice FAISS e recuperacao top-k com concatenacao literal de trechos.",
+  "implemented": ["leitura de PDFs", "chunking", "embeddings", "indice FAISS", "recuperacao top-k"],
+  "not_implemented": ["LLM/geracao", "prompt", "interface", "comparacao RAG x LLM puro", "avaliacao de assertividade"],
+  "chunks_indexed": 31,
+  "notes": "O relatorio do grupo declara Llama 3.2 3B e 90% de assertividade, sem evidencia correspondente no notebook. O corpus de dez PDFs nao foi fornecido. Classificado como recuperacao semantica, nao RAG generativo completo.",
+  "evidence": ["evidence/rag/"]
+}

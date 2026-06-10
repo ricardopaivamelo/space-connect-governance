@@ -1,0 +1,4 @@
+2026-05-01 08:00 Missão Ares-7 — relatório diário
+Todos os subsistemas operando em regime nominal. Bateria estável.
+Comunicação saudável. Manobra orbital executada conforme planejado.
+Calibração de sensores concluída com sucesso. Nenhuma ocorrência.

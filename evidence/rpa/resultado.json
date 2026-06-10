@@ -1,0 +1,220 @@
+{
+  "gerado_em": "2026-06-09T20:55:28",
+  "estatisticas": {
+    "total_arquivos": 9,
+    "total_processados": 8,
+    "total_falhas": 1,
+    "telemetria_criticas": 1,
+    "documentos_criticos": 2,
+    "imagens_anomalas": 1,
+    "falhas": [
+      {
+        "arquivo": "telemetria_corrompida.csv",
+        "tipo": "telemetria",
+        "erro": "ValueError: Nenhuma coluna numérica encontrada na telemetria."
+      }
+    ]
+  },
+  "resultados": {
+    "telemetria": [
+      {
+        "nome": "telemetria_sol_001.csv",
+        "tipo": "telemetria",
+        "linhas": 300,
+        "colunas_monitoradas": [
+          "temp_C",
+          "tensao_V",
+          "pressao_kPa",
+          "rpm_giro"
+        ],
+        "n_anomalias": 41,
+        "n_anomalias_zscore": 0,
+        "n_anomalias_isolationforest": 41,
+        "perc_anomalias": 13.67,
+        "severidade": "NOMINAL",
+        "leituras_criticas": [
+          {
+            "linha": 204,
+            "score_anomalia": 0.6393,
+            "z_max": 2.92
+          },
+          {
+            "linha": 139,
+            "score_anomalia": 0.6222,
+            "z_max": 3.18
+          },
+          {
+            "linha": 153,
+            "score_anomalia": 0.6145,
+            "z_max": 2.45
+          },
+          {
+            "linha": 229,
+            "score_anomalia": 0.6125,
+            "z_max": 2.56
+          },
+          {
+            "linha": 49,
+            "score_anomalia": 0.6102,
+            "z_max": 3.77
+          }
+        ],
+        "resumo": "300 leituras; 0 outlier(s) confirmado(s) (z-score) e 41 flag(s) do Isolation Forest, em 4 variáveis."
+      },
+      {
+        "nome": "telemetria_sol_002.csv",
+        "tipo": "telemetria",
+        "linhas": 300,
+        "colunas_monitoradas": [
+          "temp_C",
+          "tensao_V",
+          "pressao_kPa",
+          "rpm_giro"
+        ],
+        "n_anomalias": 13,
+        "n_anomalias_zscore": 5,
+        "n_anomalias_isolationforest": 13,
+        "perc_anomalias": 4.33,
+        "severidade": "CRÍTICO",
+        "leituras_criticas": [
+          {
+            "linha": 275,
+            "score_anomalia": 0.7451,
+            "z_max": 11.97
+          },
+          {
+            "linha": 120,
+            "score_anomalia": 0.7221,
+            "z_max": 11.8
+          },
+          {
+            "linha": 276,
+            "score_anomalia": 0.7085,
+            "z_max": 11.97
+          },
+          {
+            "linha": 50,
+            "score_anomalia": 0.7084,
+            "z_max": 11.8
+          },
+          {
+            "linha": 200,
+            "score_anomalia": 0.6641,
+            "z_max": 15.8
+          }
+        ],
+        "resumo": "300 leituras; 5 outlier(s) confirmado(s) (z-score) e 13 flag(s) do Isolation Forest, em 4 variáveis."
+      }
+    ],
+    "documentos": [
+      {
+        "nome": "boletim_sol_002.txt",
+        "tipo": "documento",
+        "palavras": 39,
+        "severidade": "ALERTA",
+        "severidade_modelo_ml": "ALERTA",
+        "entidades": {
+          "datas": [
+            "2026-05-02 14:33"
+          ],
+          "codigos_erro": [
+            "ERR-204"
+          ],
+          "percentuais": [
+            "87%"
+          ],
+          "subsistemas": [
+            "bateria",
+            "comunicação",
+            "power"
+          ]
+        },
+        "resumo": "39 palavras; severidade ALERTA; 1 código(s) de erro, 3 subsistema(s) citado(s)."
+      },
+      {
+        "nome": "emergencia_sol_003.log",
+        "tipo": "documento",
+        "palavras": 37,
+        "severidade": "CRÍTICO",
+        "severidade_modelo_ml": "CRÍTICO",
+        "entidades": {
+          "datas": [
+            "2026-05-03 02:11"
+          ],
+          "codigos_erro": [
+            "ERROR-991"
+          ],
+          "percentuais": [
+            "130%"
+          ],
+          "subsistemas": [
+            "combustível",
+            "comunicação",
+            "propulsion"
+          ]
+        },
+        "resumo": "37 palavras; severidade CRÍTICO; 1 código(s) de erro, 3 subsistema(s) citado(s)."
+      },
+      {
+        "nome": "log_diario_sol_001.txt",
+        "tipo": "documento",
+        "palavras": 31,
+        "severidade": "NOMINAL",
+        "severidade_modelo_ml": "NOMINAL",
+        "entidades": {
+          "datas": [
+            "2026-05-01 08:00"
+          ],
+          "codigos_erro": [],
+          "percentuais": [],
+          "subsistemas": [
+            "bateria",
+            "comunicação"
+          ]
+        },
+        "resumo": "31 palavras; severidade NOMINAL; 0 código(s) de erro, 2 subsistema(s) citado(s)."
+      }
+    ],
+    "imagens": [
+      {
+        "nome": "sensor_estelar_003.jpg",
+        "tipo": "imagem",
+        "largura": 640,
+        "altura": 640,
+        "brilho_medio": 5.25,
+        "desvio_brilho": 4.54,
+        "contraste": 255.0,
+        "nitidez": 103.93,
+        "perc_hotspots": 0.004,
+        "severidade": "NOMINAL",
+        "resumo": "640x640px; brilho médio 5; 0.004% de hotspots -> NOMINAL."
+      },
+      {
+        "nome": "sensor_lunar_002.jpg",
+        "tipo": "imagem",
+        "largura": 626,
+        "altura": 640,
+        "brilho_medio": 63.62,
+        "desvio_brilho": 84.49,
+        "contraste": 255.0,
+        "nitidez": 141.54,
+        "perc_hotspots": 0.077,
+        "severidade": "NOMINAL",
+        "resumo": "626x640px; brilho médio 64; 0.077% de hotspots -> NOMINAL."
+      },
+      {
+        "nome": "sensor_solar_001.jpg",
+        "tipo": "imagem",
+        "largura": 640,
+        "altura": 640,
+        "brilho_medio": 48.9,
+        "desvio_brilho": 47.08,
+        "contraste": 255.0,
+        "nitidez": 163.15,
+        "perc_hotspots": 0.205,
+        "severidade": "ANOMALIA",
+        "resumo": "640x640px; brilho médio 49; 0.205% de hotspots -> ANOMALIA."
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "module": "iot",
+  "data_origin": "not_received",
+  "description": "Physical Computing / IoT: modulo nao recebido ate o fechamento da entrega GBA. Slot arquitetural reservado: ESP32/sensores -> plataforma IoT -> eventos -> sensor neuromorfico / RPA.",
+  "received": false,
+  "planned_position": "fonte de telemetria anterior ao processamento neuromorfico e ao RPA",
+  "current_substitute": "telemetria simulada presente nos demais modulos (CSVs do RPA e dataset do sensor neuromorfico)"
+}

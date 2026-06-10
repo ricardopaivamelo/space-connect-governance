@@ -1,0 +1,284 @@
+{
+  "generated_at": "2026-06-10T01:03:19.771798+00:00",
+  "solution_name": "Space Connect Governance",
+  "scenario": "Plataforma integrada de monitoramento e apoio a decisao para ambientes extremos e riscos ambientais, usando dados espaciais, processamento inteligente e supervisao humana.",
+  "modules": [
+    {
+      "name": "MissionOps RPA",
+      "discipline": "AI for RPA",
+      "status": "executado e verificado localmente em 09/06/2026",
+      "verification_level": "verified_local_execution",
+      "integration_level": "integrated_data_source",
+      "data_origin": "replayed_evidence",
+      "evidence": [
+        "evidence/rpa/resultado.json",
+        "evidence/rpa/execucao.log"
+      ],
+      "metrics": {
+        "total_arquivos": 9,
+        "total_processados": 8,
+        "total_falhas": 1,
+        "telemetria_criticas": 1,
+        "documentos_criticos": 2,
+        "imagens_anomalas": 1
+      },
+      "limitations": [
+        "classificador NLP sintetico com acuracia de 41,7% e recall zero para ALERTA (nao reaproveitado)",
+        "analise de imagem usa proxy de brilho/saturacao, nao detector semantico de incendio",
+        "regras por substring podem gerar falso positivo em negacao",
+        "logs sobrescritos a cada execucao e ausencia de testes automatizados"
+      ],
+      "human_review_required": true
+    },
+    {
+      "name": "Physical Computing / IoT",
+      "discipline": "Physical Computing, Embedded AI, Robotics e Cognitive IoT",
+      "status": "nao recebido ate o fechamento da entrega",
+      "verification_level": "not_verified",
+      "integration_level": "not_integrated",
+      "data_origin": "not_received",
+      "evidence": [],
+      "metrics": {},
+      "limitations": [
+        "modulo nao entregue; slot arquitetural reservado: ESP32/sensores -> plataforma IoT -> eventos -> neuromorfico/RPA",
+        "telemetria atual e simulada, originada dos demais modulos"
+      ],
+      "human_review_required": false
+    },
+    {
+      "name": "NeuroSpace Alert (sensor neuromorfico simulado)",
+      "discipline": "Computacao Neuromorfica",
+      "status": "reexecutado localmente com o dataset recebido em 09/06/2026",
+      "verification_level": "verified_local_execution",
+      "integration_level": "integrated_data_source",
+      "data_origin": "replayed_evidence",
+      "evidence": [
+        "evidence/neuromorfico/",
+        "integration/sources/neuromorphic_comparacao.json",
+        "integration/sources/neuromorphic_saida_ajuste_b.csv"
+      ],
+      "metrics": {
+        "dataset_rows": 61,
+        "ajuste_A_entrega_accuracy": 0.836066,
+        "ajuste_B_entrega_accuracy": 0.721311,
+        "ajuste_A_primeiro_amarelo_min": 190,
+        "ajuste_A_primeiro_vermelho_min": 215,
+        "ajuste_B_primeiro_amarelo_min": 215,
+        "ajuste_B_primeiro_vermelho_min": 240
+      },
+      "limitations": [
+        "PDF do grupo cita limiares 250/290/330, mas o codigo usa 25/29/33",
+        "atualizacao do estado nao usa delta_t: o resultado depende da frequencia de amostragem",
+        "economia de energia proposta, nao medida",
+        "recomendacao do Ajuste B nao e sustentada pela comparacao com condicao_real (Ajuste A tem acuracia maior e menos atraso)"
+      ],
+      "human_review_required": true
+    },
+    {
+      "name": "Deteccao de anomalias com QML",
+      "discipline": "Computacao Quantica e IA",
+      "status": "reproduzido localmente com correcao de leakage e cinco seeds",
+      "verification_level": "verified_local_execution",
+      "integration_level": "evidence_only",
+      "data_origin": "replayed_evidence",
+      "evidence": [
+        "evidence/qml/"
+      ],
+      "metrics": {
+        "svm_mean_accuracy": 0.7429,
+        "qsvc_mean_accuracy": 0.6095,
+        "majority_baseline_accuracy": 0.619
+      },
+      "limitations": [
+        "sem vantagem quantica observada; QSVC abaixo do SVM classico",
+        "execucao simulada localmente, sem hardware quantico e sem modelo de ruido",
+        "uso recomendado: estudo comparativo e evidencia de governanca, nao detector operacional"
+      ],
+      "human_review_required": true
+    },
+    {
+      "name": "Classificador de risco de incendio (wildfire)",
+      "discipline": "Visao Computacional",
+      "status": "outputs historicos do notebook auditados, sem reexecucao do treinamento",
+      "verification_level": "audited_outputs",
+      "integration_level": "evidence_only",
+      "data_origin": "historical_notebook_output",
+      "evidence": [
+        "evidence/visao/"
+      ],
+      "metrics": {
+        "accuracy": 0.9802,
+        "precision": 0.9843,
+        "recall": 0.9797,
+        "f1": 0.982,
+        "roc_auc": 0.998,
+        "confusion_matrix_total": 6268,
+        "images_in_directory": 6300,
+        "images_not_evaluated": 32
+      },
+      "limitations": [
+        "dataset e modelo treinado nao incluidos na entrega",
+        "dataset canadense, sem teste geografico externo",
+        "risco de aprender paisagem urbana versus florestal",
+        "sem Grad-CAM e sem benchmark de borda",
+        "nao prova deteccao de incendio ativo nem generalizacao para o Brasil",
+        "O PDF do grupo declara 99,4%/99,3%/99,5%, valores que nao correspondem aos outputs do notebook (98,02% de acuracia).",
+        "autoria em correcao junto ao integrante responsavel"
+      ],
+      "human_review_required": true
+    },
+    {
+      "name": "Recuperacao semantica documental",
+      "discipline": "PLN, Chatbots e Virtual Agents",
+      "status": "componente de recuperacao auditado; camada generativa nao implementada",
+      "verification_level": "audited_outputs",
+      "integration_level": "conceptual",
+      "data_origin": "historical_notebook_output",
+      "evidence": [
+        "evidence/rag/"
+      ],
+      "metrics": {
+        "chunks_indexed": 31
+      },
+      "limitations": [
+        "nao ha LLM, prompt, interface nem comparacao RAG x LLM puro",
+        "corpus de dez PDFs nao fornecido",
+        "declaracoes de Llama 3.2 3B e 90% de assertividade nao tem evidencia no notebook e nao sao repetidas aqui"
+      ],
+      "human_review_required": true
+    },
+    {
+      "name": "Painel integrado de decisao (este repositorio)",
+      "discipline": "Front-End e Mobile Development",
+      "status": "adaptado do GeoGuard IA para consumir o snapshot integrado",
+      "verification_level": "verified_local_execution",
+      "integration_level": "integrated_ui",
+      "data_origin": "live",
+      "evidence": [
+        "app.py",
+        "evidence/frontend/frontend_metrics.json"
+      ],
+      "metrics": {
+        "registros_simulados_originais": 450,
+        "alertas_criticos_simulados": 93
+      },
+      "limitations": [
+        "indicador original de populacao exposta somava pessoa-dias (inflacao ~30,9x) e nao e usado como resultado",
+        "dados climaticos do prototipo original sao sinteticos; o painel integrado le apenas artefatos verificados"
+      ],
+      "human_review_required": true
+    }
+  ],
+  "metrics": {
+    "modules_total": 7,
+    "modules_integrated": 3,
+    "modules_evidence_only": 2,
+    "modules_conceptual": 1,
+    "modules_not_received": 1,
+    "alerts_total": 5,
+    "rpa_files_processed": 8,
+    "rpa_failures_handled": 1
+  },
+  "alerts": [
+    {
+      "alert_id": "rpa-tel-telemetria_sol_002.csv",
+      "source_module": "MissionOps RPA",
+      "severity": "CRÍTICO",
+      "title": "Telemetria telemetria_sol_002.csv",
+      "detail": "300 leituras; 5 outlier(s) confirmado(s) (z-score) e 13 flag(s) do Isolation Forest, em 4 variáveis."
+    },
+    {
+      "alert_id": "rpa-doc-boletim_sol_002.txt",
+      "source_module": "MissionOps RPA",
+      "severity": "ALERTA",
+      "title": "Documento boletim_sol_002.txt",
+      "detail": "39 palavras; severidade ALERTA; 1 código(s) de erro, 3 subsistema(s) citado(s)."
+    },
+    {
+      "alert_id": "rpa-doc-emergencia_sol_003.log",
+      "source_module": "MissionOps RPA",
+      "severity": "CRÍTICO",
+      "title": "Documento emergencia_sol_003.log",
+      "detail": "37 palavras; severidade CRÍTICO; 1 código(s) de erro, 3 subsistema(s) citado(s)."
+    },
+    {
+      "alert_id": "rpa-img-sensor_solar_001.jpg",
+      "source_module": "MissionOps RPA",
+      "severity": "ANOMALIA",
+      "title": "Imagem sensor_solar_001.jpg",
+      "detail": "640x640px; brilho médio 49; 0.205% de hotspots -> ANOMALIA."
+    },
+    {
+      "alert_id": "neuro-b-vermelho",
+      "source_module": "NeuroSpace Alert",
+      "severity": "CRÍTICO",
+      "title": "Transicao para ALERTA_CRITICO no Ajuste B",
+      "detail": "Sensor neuromorfico (Ajuste B da entrega) atinge estado vermelho aos 240 min; condicao CRITICA real comeca aos 200 min (atraso de 40 min)."
+    }
+  ],
+  "integration_matrix": [
+    {
+      "connection": "RPA -> snapshot integrado",
+      "status": "implemented_verified",
+      "detail": "resultado.json da execucao local e lido por build_snapshot.py"
+    },
+    {
+      "connection": "Sensor neuromorfico -> snapshot integrado",
+      "status": "implemented_verified",
+      "detail": "comparacao reexecutada e serie do Ajuste B sao lidas por build_snapshot.py"
+    },
+    {
+      "connection": "Snapshot integrado -> painel Streamlit",
+      "status": "implemented_verified",
+      "detail": "app.py le data/integrated_snapshot.json e exibe modulos, metricas e alertas"
+    },
+    {
+      "connection": "Painel -> log de decisao humana",
+      "status": "implemented_verified",
+      "detail": "decisoes sao persistidas em data/decision_log.jsonl com timestamp, operador e justificativa"
+    },
+    {
+      "connection": "QML -> snapshot integrado",
+      "status": "evidence_only",
+      "detail": "metricas da reproducao auditada entram como evidencia comparativa, nao como detector operacional"
+    },
+    {
+      "connection": "Visao Computacional -> snapshot integrado",
+      "status": "evidence_only",
+      "detail": "metricas historicas do notebook auditado; modelo treinado nao foi entregue"
+    },
+    {
+      "connection": "Recuperacao semantica (PLN) -> solucao",
+      "status": "conceptual",
+      "detail": "componente de busca documental auditado; sem camada generativa ou interface"
+    },
+    {
+      "connection": "IoT -> telemetria do ecossistema",
+      "status": "not_received",
+      "detail": "modulo nao entregue; posicao arquitetural reservada"
+    }
+  ],
+  "governance": {
+    "human_in_the_loop": "alertas exigem decisao humana registrada em data/decision_log.jsonl",
+    "credentials": "credencial Kaggle exposta no notebook original de Visao foi removida da copia de trabalho; revogacao solicitada ao titular; o segredo nao esta neste repositorio",
+    "authorship_pending": "Visao Computacional lista autoria em correcao junto ao integrante responsavel",
+    "ai_usage": "IA foi usada como ferramenta de auditoria, integracao e redacao tecnica; a conclusao do relatorio e escrita pelos alunos",
+    "truthfulness": "cada modulo declara verification_level, integration_level e data_origin; metricas nao comprovadas nao sao apresentadas como resultado"
+  },
+  "source_artifacts": [
+    "frontend_metrics.json",
+    "iot_status.json",
+    "neuromorphic_comparacao.json",
+    "neuromorphic_saida_ajuste_b.csv",
+    "qml_metrics.json",
+    "rag_status.json",
+    "rpa_resultado.json",
+    "vision_metrics.json"
+  ],
+  "limitations": [
+    "nenhum modelo roda ao vivo no painel: o snapshot consolida artefatos verificados (replayed/historical)",
+    "modulo IoT nao recebido; telemetria e simulada",
+    "RAG generativo nao implementado; apenas recuperacao semantica auditada",
+    "metricas de Visao valem para o dataset canadense avaliado no notebook (6.268 imagens), sem teste geografico externo"
+  ]
+}

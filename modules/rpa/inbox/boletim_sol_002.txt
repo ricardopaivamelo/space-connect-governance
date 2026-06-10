@@ -1,0 +1,5 @@
+2026-05-02 14:33 Missão Ares-7 — boletim de status
+WARNING: solar panel output slightly below expected (87%).
+Aviso: degradação gradual da bateria detectada no subsistema power.
+Latência de comunicação excedeu o limiar nominal. Monitorar de perto.
+Código de referência: ERR-204.

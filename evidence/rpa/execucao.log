@@ -1,0 +1,19 @@
+2026-06-09 20:55:27 | INFO     | ============================================================
+2026-06-09 20:55:27 | INFO     | INÍCIO DA EXECUÇÃO — MissionOps RPA
+2026-06-09 20:55:27 | INFO     | ============================================================
+2026-06-09 20:55:27 | INFO     | Etapa 1 | 9 arquivo(s) reconhecido(s) no inbox.
+2026-06-09 20:55:27 | INFO     |   OK   [documento] boletim_sol_002.txt -> ALERTA
+2026-06-09 20:55:27 | INFO     |   OK   [documento] emergencia_sol_003.log -> CRÍTICO
+2026-06-09 20:55:27 | INFO     |   OK   [documento] log_diario_sol_001.txt -> NOMINAL
+2026-06-09 20:55:27 | INFO     |   OK   [imagem] sensor_estelar_003.jpg -> NOMINAL
+2026-06-09 20:55:27 | INFO     |   OK   [imagem] sensor_lunar_002.jpg -> NOMINAL
+2026-06-09 20:55:27 | INFO     |   OK   [imagem] sensor_solar_001.jpg -> ANOMALIA
+2026-06-09 20:55:27 | ERROR    |   FALHA [telemetria] telemetria_corrompida.csv -> ValueError: Nenhuma coluna numérica encontrada na telemetria.
+2026-06-09 20:55:28 | INFO     |   OK   [telemetria] telemetria_sol_001.csv -> NOMINAL
+2026-06-09 20:55:28 | INFO     |   OK   [telemetria] telemetria_sol_002.csv -> CRÍTICO
+2026-06-09 20:55:28 | INFO     | Etapa 3 | Processados 8, falhas 1.
+2026-06-09 20:55:28 | INFO     | Etapa 4 | Artefato 'excel' gerado: relatorio_missao.xlsx
+2026-06-09 20:55:28 | INFO     | Etapa 4 | Artefato 'json' gerado: resultado.json
+2026-06-09 20:55:28 | INFO     | Etapa 4 | Artefato 'pdf' gerado: relatorio_missao.pdf
+2026-06-09 20:55:28 | INFO     | FIM DA EXECUÇÃO — 0.36s
+2026-06-09 20:55:28 | INFO     | ============================================================

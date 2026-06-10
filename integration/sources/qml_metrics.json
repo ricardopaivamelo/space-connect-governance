@@ -1,0 +1,18 @@
+{
+  "module": "qml",
+  "data_origin": "replayed_evidence",
+  "description": "Resultados da reproducao local do notebook de Computacao Quantica e IA, com correcao de leakage e repeticao em cinco seeds.",
+  "original_run": {
+    "svm_accuracy": 0.7619,
+    "qsvc_accuracy": 0.5238,
+    "majority_baseline_accuracy": 0.6190,
+    "qsvc_contextual_recall": 0.25
+  },
+  "corrected_run_5_seeds": {
+    "svm_mean_accuracy": 0.7429,
+    "qsvc_mean_accuracy": 0.6095,
+    "majority_baseline_accuracy": 0.6190
+  },
+  "conclusion": "Sem vantagem quantica observada; QSVC abaixo do SVM classico e proximo do baseline majoritario. Execucao simulada localmente, sem hardware quantico e sem modelo de ruido.",
+  "evidence": ["evidence/qml/"]
+}

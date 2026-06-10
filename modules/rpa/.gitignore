@@ -1,0 +1,18 @@
+# Cache do Python
+__pycache__/
+*.pyc
+
+# Arquivos gerados pelo robô (mantém as pastas via .gitkeep)
+outputs/*
+logs/*
+!outputs/.gitkeep
+!logs/.gitkeep
+
+# Ambiente virtual
+.venv/
+
+# Sistema
+.DS_Store
+
+# Claude Code (local settings)
+.claude/

@@ -1,0 +1,25 @@
+{
+  "linhas": 450,
+  "inicio": "2026-03-12",
+  "fim": "2026-06-09",
+  "niveis": {
+    "Alto": 215,
+    "Moderado": 127,
+    "Crítico": 93,
+    "Baixo": 15
+  },
+  "categorias": {
+    "Baixa criticidade": 328,
+    "Queimada": 92,
+    "Enchente": 18,
+    "Seca": 12
+  },
+  "metricas": {
+    "risco_medio": 85.9,
+    "alertas_criticos": 93,
+    "populacao_exposta": 91302902,
+    "focos_calor": 7038
+  },
+  "acao": "Enviar alerta preventivo para Pantanal: risco crítico detectado no recorte filtrado.",
+  "risco_maximo": 188.0
+}

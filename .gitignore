@@ -1,0 +1,31 @@
+# ambientes e caches
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# segredos e configuracoes locais
+*.env
+.env*
+kaggle.json
+*.local.json
+.claude/
+
+# sistemas operacionais
+.DS_Store
+__MACOSX/
+Thumbs.db
+
+# midia pesada (videos ficam no YouTube)
+*.mp4
+*.mkv
+*.mov
+*.avi
+
+# datasets e modelos grandes
+*.h5
+*.keras
+*.pt
+*.onnx
