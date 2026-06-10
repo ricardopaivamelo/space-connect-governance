@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-10T01:35:49.517816+00:00",
+  "generated_at": "2026-06-10T01:47:31.340033+00:00",
   "solution_name": "Space Connect Governance",
   "scenario": "Plataforma integrada de monitoramento e apoio a decisao para ambientes extremos e riscos ambientais, usando dados espaciais, processamento inteligente e supervisao humana.",
   "modules": [
@@ -48,8 +48,8 @@
       },
       "limitations": [
         "nenhuma evidencia de execucao no pacote (sem prints, dados gravados ou video)",
-        "bug de caminhos relativos no docker-compose impede o auto-provisionamento do datasource/dashboard do Grafana",
-        "broker no firmware (host.docker.internal:1884) inconsistente com o README (broker.hivemq.com)",
+        "bug de caminhos relativos no docker-compose (impedia o provisionamento do Grafana) CORRIGIDO pela equipe de integracao em 09/06; validado com docker compose config — ver modules/iot/iot-agro-space/CORRECOES.md",
+        "broker no firmware (host.docker.internal:1884) inconsistente com o README (broker.hivemq.com); nao alterado",
         "video pitch exigido pelo enunciado da disciplina ausente no pacote",
         "credenciais dev hardcoded da stack local (sem acesso externo); mover para .env",
         "integracao tecnica nao realizada: chegada posterior ao fechamento do pacote integrado",

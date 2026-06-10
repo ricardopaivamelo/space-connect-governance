@@ -7,8 +7,8 @@
   "audit_summary": "Firmware ESP32 (C++, 612 linhas) simulado no Wokwi: DHT22, LDR e potenciometros simulando umidade do solo e chuva; publica JSON via MQTT em 5 topicos (agrosat/*). Stack docker-compose com Mosquitto, Node-RED, InfluxDB 2.7 e Grafana 10.4; fluxo Node-RED grava telemetria no InfluxDB e envia alertas ao Telegram (token por variavel de ambiente).",
   "audit_issues": [
     "nenhuma evidencia de execucao no pacote (sem prints, dados gravados ou video)",
-    "bug de caminhos relativos no docker-compose impede o auto-provisionamento do datasource/dashboard do Grafana",
-    "broker no firmware (host.docker.internal:1884) inconsistente com o README (broker.hivemq.com)",
+    "bug de caminhos relativos no docker-compose (impedia o provisionamento do Grafana) CORRIGIDO pela equipe de integracao em 09/06; validado com docker compose config — ver modules/iot/iot-agro-space/CORRECOES.md",
+    "broker no firmware (host.docker.internal:1884) inconsistente com o README (broker.hivemq.com); nao alterado",
     "video pitch exigido pelo enunciado da disciplina ausente no pacote",
     "credenciais dev hardcoded da stack local (sem acesso externo); mover para .env"
   ],
