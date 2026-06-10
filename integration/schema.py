@@ -37,6 +37,7 @@ VALID_DATA_ORIGINS = {
     "historical_notebook_output",
     "conceptual",
     "not_received",
+    "received_late",
 }
 
 ALERT_REQUIRED_KEYS = ["alert_id", "source_module", "severity", "title", "detail"]

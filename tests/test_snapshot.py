@@ -19,7 +19,8 @@ def test_snapshot_has_seven_modules_and_honest_levels():
     snapshot = build_snapshot()
     assert len(snapshot["modules"]) == 7
     by_discipline = {m["discipline"]: m for m in snapshot["modules"]}
-    assert by_discipline["Physical Computing, Embedded AI, Robotics e Cognitive IoT"]["data_origin"] == "not_received"
+    assert by_discipline["Physical Computing, Embedded AI, Robotics e Cognitive IoT"]["data_origin"] == "received_late"
+    assert by_discipline["Physical Computing, Embedded AI, Robotics e Cognitive IoT"]["integration_level"] == "not_integrated"
     assert by_discipline["PLN, Chatbots e Virtual Agents"]["integration_level"] == "conceptual"
     assert by_discipline["Visao Computacional"]["metrics"]["accuracy"] == 0.9802
 

@@ -13,7 +13,7 @@ aba **Governança** do painel.
 | QML → snapshot integrado | Evidência auditada | métricas da reprodução local (5 seeds, leakage corrigido); sem vantagem quântica; não é detector operacional |
 | Visão Computacional → snapshot integrado | Evidência auditada | métricas históricas do notebook (98,02% de acurácia em 6.268 imagens); modelo treinado não foi entregue |
 | Recuperação semântica (PLN) → solução | Conceitual | busca documental auditada (31 chunks, FAISS, top-k); sem LLM, prompt ou interface |
-| IoT → telemetria do ecossistema | Não recebida | módulo não entregue; slot reservado: ESP32/sensores → plataforma IoT → eventos → neuromórfico/RPA |
+| IoT → telemetria do ecossistema | Recebida tardiamente, não integrada | AgroSat Monitor recebido às 22h23 de 09/06; código auditado (ESP32/Wokwi + MQTT + Node-RED + InfluxDB + Grafana), sem evidência de execução; slot arquitetural mantido: ESP32/sensores → plataforma IoT → eventos → neuromórfico/RPA |
 
 ## Níveis usados
 
@@ -22,3 +22,5 @@ aba **Governança** do painel.
 - `historical_notebook_output` — outputs gravados auditados, sem reexecução.
 - `conceptual` — papel descrito na arquitetura, sem conexão técnica.
 - `not_received` — material não entregue até o fechamento.
+- `received_late` — material recebido após o fechamento do pacote integrado;
+  código auditado, execução não verificada, sem integração técnica.

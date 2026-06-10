@@ -1,0 +1,30 @@
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Node-RED local data (não versionar dados de execução)
+nodered_data/
+
+# Docker volumes locais
+mosquitto_data/
+grafana_data/
+influxdb_data/
+
+# Secrets (NUNCA versionar)
+*.env
+.env
+secrets.json
+telegram_config.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.bin
+*.elf

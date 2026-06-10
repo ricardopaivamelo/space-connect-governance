@@ -57,6 +57,7 @@ def build_rpa_module(rpa: dict) -> dict:
             "analise de imagem usa proxy de brilho/saturacao, nao detector semantico de incendio",
             "regras por substring podem gerar falso positivo em negacao",
             "logs sobrescritos a cada execucao e ausencia de testes automatizados",
+            "a entrega oficial da disciplina (notebook GS_RPA, em modules/rpa/entrega_disciplina/) e um artefato standalone com dataset sintetico de 5.000 registros gerado em codigo; nao foi integrada ao snapshot",
         ],
         "human_review_required": True,
     }
@@ -64,19 +65,24 @@ def build_rpa_module(rpa: dict) -> dict:
 
 def build_iot_module(iot: dict) -> dict:
     return {
-        "name": "Physical Computing / IoT",
+        "name": "AgroSat Monitor (Physical Computing / IoT)",
         "discipline": "Physical Computing, Embedded AI, Robotics e Cognitive IoT",
-        "status": "nao recebido ate o fechamento da entrega",
-        "verification_level": "not_verified",
+        "status": "recebido tardiamente em 09/06/2026 22h23; codigo auditado, execucao nao verificada",
+        "verification_level": "code_audited_not_executed",
         "integration_level": "not_integrated",
-        "data_origin": "not_received",
-        "evidence": [],
-        "metrics": {},
-        "limitations": [
-            "modulo nao entregue; slot arquitetural reservado: ESP32/sensores -> plataforma IoT -> eventos -> neuromorfico/RPA",
-            "telemetria atual e simulada, originada dos demais modulos",
+        "data_origin": "received_late",
+        "evidence": ["modules/iot/iot-agro-space/"],
+        "metrics": {
+            "firmware_lines": 612,
+            "mqtt_topics": 5,
+            "docker_services": 4,
+        },
+        "limitations": iot["audit_issues"]
+        + [
+            "integracao tecnica nao realizada: chegada posterior ao fechamento do pacote integrado",
+            "telemetria atual da plataforma segue simulada, originada dos demais modulos",
         ],
-        "human_review_required": False,
+        "human_review_required": True,
     }
 
 
@@ -253,8 +259,8 @@ def build_integration_matrix() -> list[dict]:
          "detail": "metricas historicas do notebook auditado; modelo treinado nao foi entregue"},
         {"connection": "Recuperacao semantica (PLN) -> solucao", "status": "conceptual",
          "detail": "componente de busca documental auditado; sem camada generativa ou interface"},
-        {"connection": "IoT -> telemetria do ecossistema", "status": "not_received",
-         "detail": "modulo nao entregue; posicao arquitetural reservada"},
+        {"connection": "IoT -> telemetria do ecossistema", "status": "received_late_not_integrated",
+         "detail": "AgroSat Monitor recebido as 22h23 de 09/06; codigo auditado (ESP32/Wokwi + MQTT + Node-RED + InfluxDB + Grafana), sem evidencia de execucao; integracao tecnica nao realizada"},
     ]
 
 
@@ -290,6 +296,7 @@ def build_snapshot() -> dict:
             "modules_evidence_only": sum(1 for m in modules if m["integration_level"] == "evidence_only"),
             "modules_conceptual": sum(1 for m in modules if m["integration_level"] == "conceptual"),
             "modules_not_received": sum(1 for m in modules if m["data_origin"] == "not_received"),
+            "modules_received_late": sum(1 for m in modules if m["data_origin"] == "received_late"),
             "alerts_total": len(alerts),
             "rpa_files_processed": rpa["estatisticas"]["total_processados"],
             "rpa_failures_handled": rpa["estatisticas"]["total_falhas"],
@@ -306,8 +313,8 @@ def build_snapshot() -> dict:
         "source_artifacts": sorted(p.name for p in SOURCES.iterdir() if p.is_file()),
         "limitations": [
             "nenhum modelo roda ao vivo no painel: o snapshot consolida artefatos verificados (replayed/historical)",
-            "modulo IoT nao recebido; telemetria e simulada",
-            "RAG generativo nao implementado; apenas recuperacao semantica auditada",
+            "modulo IoT recebido tardiamente (22h23 de 09/06): codigo auditado, execucao nao verificada, nao integrado tecnicamente; telemetria segue simulada",
+            "RAG generativo nao implementado; apenas recuperacao semantica auditada; corpus original de dez PDFs (edificacoes sustentaveis) segue ausente — quatro PDFs alternativos de tema espacial recebidos tardiamente nao foram indexados",
             "metricas de Visao valem para o dataset canadense avaliado no notebook (6.268 imagens), sem teste geografico externo",
         ],
     }

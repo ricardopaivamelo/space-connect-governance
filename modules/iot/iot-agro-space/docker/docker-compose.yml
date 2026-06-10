@@ -1,0 +1,110 @@
+version: '3.8'
+
+# ============================================================
+# AgroSat Monitor - Stack IoT Completa
+# FIAP GS 2026.1
+# ============================================================
+# Serviços:
+#   - Mosquitto  : Broker MQTT         → porta 1883 / 9001 (ws)
+#   - Node-RED   : Orquestrador fluxos → porta 1880
+#   - InfluxDB   : Banco de dados TS   → porta 8086
+#   - Grafana    : Dashboard           → porta 3000
+# ============================================================
+
+networks:
+  agrosat-net:
+    driver: bridge
+
+volumes:
+  mosquitto_data:
+  mosquitto_log:
+  nodered_data:
+  influxdb_data:
+  influxdb_config:
+  grafana_data:
+
+services:
+
+  # ─────────────────────────────────────────
+  # MOSQUITTO - Broker MQTT
+  # ─────────────────────────────────────────
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    container_name: agrosat-mosquitto
+    restart: unless-stopped
+    ports:
+      - "1884:1883"     # MQTT
+      - "9001:9001"     # WebSocket
+    volumes:
+      - ./docker/mosquitto/config:/mosquitto/config:ro
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_log:/mosquitto/log
+    networks:
+      - agrosat-net
+
+  # ─────────────────────────────────────────
+  # NODE-RED - Orquestrador de Fluxos
+  # ─────────────────────────────────────────
+  nodered:
+    image: nodered/node-red:3.1
+    container_name: agrosat-nodered
+    restart: unless-stopped
+    ports:
+      - "1880:1880"
+    environment:
+      - TZ=America/Sao_Paulo
+      - NODE_RED_ENABLE_PROJECTS=true
+    volumes:
+      - nodered_data:/data
+      - ./nodered-flows:/data/flows_backup:ro
+    depends_on:
+      - mosquitto
+      - influxdb
+    networks:
+      - agrosat-net
+
+  # ─────────────────────────────────────────
+  # INFLUXDB - Banco de Dados Time Series
+  # ─────────────────────────────────────────
+  influxdb:
+    image: influxdb:2.7
+    container_name: agrosat-influxdb
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: agrosat123
+      DOCKER_INFLUXDB_INIT_ORG: fiap
+      DOCKER_INFLUXDB_INIT_BUCKET: agrosat
+      DOCKER_INFLUXDB_INIT_RETENTION: 30d
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: agrosat-super-secret-token-2026
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+      - influxdb_config:/etc/influxdb2
+    networks:
+      - agrosat-net
+
+  # ─────────────────────────────────────────
+  # GRAFANA - Dashboard de Visualização
+  # ─────────────────────────────────────────
+  grafana:
+    image: grafana/grafana:10.4.0
+    container_name: agrosat-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: agrosat123
+      GF_INSTALL_PLUGINS: grafana-clock-panel,grafana-worldmap-panel
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/agrosat.json
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./docker/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./docker/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - influxdb
+    networks:
+      - agrosat-net

@@ -1,0 +1,239 @@
+[
+  {
+    "id": "tab-agrosat",
+    "type": "tab",
+    "label": "AgroSat Monitor",
+    "disabled": false,
+    "info": "Fluxo principal do AgroSat Monitor - FIAP GS 2026.1"
+  },
+
+  {
+    "id": "mqtt-in-telemetria",
+    "type": "mqtt in",
+    "z": "tab-agrosat",
+    "name": "MQTT: Telemetria ESP32",
+    "topic": "agrosat/telemetria",
+    "qos": "1",
+    "datatype": "json",
+    "broker": "mqtt-broker",
+    "x": 160,
+    "y": 100,
+    "wires": [["parse-telemetria"]]
+  },
+
+  {
+    "id": "parse-telemetria",
+    "type": "function",
+    "z": "tab-agrosat",
+    "name": "Parsear Telemetria",
+    "func": "// Extrair dados da mensagem MQTT\nconst payload = msg.payload;\n\n// Preparar dados para InfluxDB (formato line protocol)\nconst timestamp = Date.now() * 1000000; // nanoseconds\n\n// Montar mensagem para InfluxDB\nconst sensores = payload.sensores || {};\nconst satelite = payload.satelite || {};\n\n// Linha 1: sensores locais\nmsg.influx_telemetria = [\n  {\n    measurement: 'telemetria',\n    tags: { device_id: payload.device_id || 'esp32-001' },\n    fields: {\n      temperatura:   sensores.temperatura   || 0,\n      umidade_ar:    sensores.umidade_ar    || 0,\n      umidade_solo:  sensores.umidade_solo  || 0,\n      luminosidade:  sensores.luminosidade  || 0,\n      chuva:         sensores.chuva         || 0\n    },\n    timestamp: new Date()\n  }\n];\n\n// Linha 2: dados de satélite\nmsg.influx_satelite = [\n  {\n    measurement: 'satelite',\n    tags: { device_id: payload.device_id || 'esp32-001' },\n    fields: {\n      ndvi:            satelite.ndvi           || 0,\n      temp_superficie: satelite.temp_superficie || 0\n    },\n    timestamp: new Date()\n  }\n];\n\n// Passar payload original\nmsg.payload_original = payload;\n\nreturn msg;",
+    "outputs": 1,
+    "x": 400,
+    "y": 100,
+    "wires": [["influx-write-telemetria", "influx-write-satelite", "verificar-alertas"]]
+  },
+
+  {
+    "id": "influx-write-telemetria",
+    "type": "function",
+    "z": "tab-agrosat",
+    "name": "→ InfluxDB Telemetria",
+    "func": "msg.payload = msg.influx_telemetria;\nreturn msg;",
+    "outputs": 1,
+    "x": 680,
+    "y": 60,
+    "wires": [["influx-out"]]
+  },
+
+  {
+    "id": "influx-write-satelite",
+    "type": "function",
+    "z": "tab-agrosat",
+    "name": "→ InfluxDB Satélite",
+    "func": "msg.payload = msg.influx_satelite;\nreturn msg;",
+    "outputs": 1,
+    "x": 680,
+    "y": 120,
+    "wires": [["influx-out"]]
+  },
+
+  {
+    "id": "influx-out",
+    "type": "influxdb out",
+    "z": "tab-agrosat",
+    "name": "InfluxDB Write",
+    "influxdb": "influxdb-config",
+    "precision": "ms",
+    "retentionPolicy": "",
+    "database": "agrosat",
+    "precisionV18FluxV2": "ms",
+    "org": "fiap",
+    "bucket": "agrosat",
+    "x": 900,
+    "y": 90,
+    "wires": []
+  },
+
+  {
+    "id": "verificar-alertas",
+    "type": "function",
+    "z": "tab-agrosat",
+    "name": "Verificar Alertas",
+    "func": "const p = msg.payload_original;\nconst s = p.sensores || {};\nconst analise = p.analise || {};\n\nconst alertas = [];\nlet mensagem = '';\n\n// Verificações de limites\nif (s.temperatura >= 35) {\n  alertas.push(`🌡️ CALOR CRÍTICO: ${s.temperatura}°C`);\n}\nif (s.temperatura <= 5) {\n  alertas.push(`❄️ RISCO DE GEADA: ${s.temperatura}°C`);\n}\nif (analise.necessita_irrigacao) {\n  alertas.push(`💧 IRRIGAR URGENTE: Solo ${s.umidade_solo}%`);\n}\nif (s.umidade_solo >= 85) {\n  alertas.push(`🌊 SOLO ENCHARCADO: ${s.umidade_solo}%`);\n}\nif (s.umidade_ar <= 20) {\n  alertas.push(`🏜️ AR MUITO SECO: ${s.umidade_ar}%`);\n}\n\nif (alertas.length > 0) {\n  mensagem = `🚨 *AGROSAT ALERTA*\\n`;\n  mensagem += `📡 Device: ${p.device_id}\\n`;\n  mensagem += `⏰ ${new Date().toLocaleString('pt-BR')}\\n\\n`;\n  mensagem += alertas.join('\\n');\n  mensagem += `\\n\\n📊 Status: ${p.status || 'ALERTA'}`;\n  \n  msg.payload = { text: mensagem };\n  msg.alerta = true;\n  return msg;\n}\n\nreturn null; // não enviar se não houver alertas",
+    "outputs": 1,
+    "x": 680,
+    "y": 200,
+    "wires": [["throttle-alertas"]]
+  },
+
+  {
+    "id": "throttle-alertas",
+    "type": "delay",
+    "z": "tab-agrosat",
+    "name": "Throttle 5min",
+    "pauseType": "rate",
+    "timeout": "1",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "5",
+    "rateUnits": "minute",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": true,
+    "x": 880,
+    "y": 200,
+    "wires": [["telegram-send"]]
+  },
+
+  {
+    "id": "telegram-send",
+    "type": "function",
+    "z": "tab-agrosat",
+    "name": "Enviar Telegram",
+    "func": "// Configure com seu Token e Chat ID do Telegram\n// Substitua BOT_TOKEN e CHAT_ID abaixo\nconst BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || 'SEU_TOKEN_AQUI';\nconst CHAT_ID   = process.env.TELEGRAM_CHAT_ID   || 'SEU_CHAT_ID_AQUI';\n\nif (BOT_TOKEN === 'SEU_TOKEN_AQUI') {\n  node.warn('Configure TELEGRAM_BOT_TOKEN e TELEGRAM_CHAT_ID nas variáveis de ambiente!');\n  return null;\n}\n\nmsg.url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;\nmsg.method = 'POST';\nmsg.headers = { 'Content-Type': 'application/json' };\nmsg.payload = JSON.stringify({\n  chat_id: CHAT_ID,\n  text: msg.payload.text,\n  parse_mode: 'Markdown'\n});\n\nreturn msg;",
+    "outputs": 1,
+    "x": 1080,
+    "y": 200,
+    "wires": [["http-telegram"]]
+  },
+
+  {
+    "id": "http-telegram",
+    "type": "http request",
+    "z": "tab-agrosat",
+    "name": "HTTP → Telegram API",
+    "method": "POST",
+    "ret": "txt",
+    "paytoqs": "ignore",
+    "url": "",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "x": 1280,
+    "y": 200,
+    "wires": [["log-telegram"]]
+  },
+
+  {
+    "id": "log-telegram",
+    "type": "debug",
+    "z": "tab-agrosat",
+    "name": "Log Telegram",
+    "active": true,
+    "tosidebar": true,
+    "x": 1460,
+    "y": 200,
+    "wires": []
+  },
+
+  {
+    "id": "mqtt-in-alertas",
+    "type": "mqtt in",
+    "z": "tab-agrosat",
+    "name": "MQTT: Alertas ESP32",
+    "topic": "agrosat/alertas",
+    "qos": "1",
+    "datatype": "json",
+    "broker": "mqtt-broker",
+    "x": 160,
+    "y": 320,
+    "wires": [["salvar-alerta-influx"]]
+  },
+
+  {
+    "id": "salvar-alerta-influx",
+    "type": "function",
+    "z": "tab-agrosat",
+    "name": "Salvar Alerta no InfluxDB",
+    "func": "const p = msg.payload;\nmsg.payload = [\n  {\n    measurement: 'alertas',\n    tags: { device_id: p.device_id || 'esp32-001', nivel: p.nivel || 'INFO' },\n    fields: { mensagem: p.alertas || '', timestamp_device: p.timestamp || 0 },\n    timestamp: new Date()\n  }\n];\nreturn msg;",
+    "outputs": 1,
+    "x": 430,
+    "y": 320,
+    "wires": [["influx-out"]]
+  },
+
+  {
+    "id": "inject-satelite-sim",
+    "type": "inject",
+    "z": "tab-agrosat",
+    "name": "Simular Dados Satélite (30s)",
+    "props": [{ "p": "payload" }, { "p": "topic", "vt": "str" }],
+    "repeat": "30",
+    "crontab": "",
+    "once": true,
+    "onceDelay": 2,
+    "topic": "agrosat/satelite",
+    "payload": "{\"ndvi\":0.72,\"temp_superficie\":28.5,\"nuvens\":\"15%\",\"alerta\":\"Normal\"}",
+    "payloadType": "json",
+    "x": 160,
+    "y": 460,
+    "wires": [["mqtt-out-satelite"]]
+  },
+
+  {
+    "id": "mqtt-out-satelite",
+    "type": "mqtt out",
+    "z": "tab-agrosat",
+    "name": "Publicar Dados Satélite",
+    "topic": "agrosat/satelite",
+    "qos": "1",
+    "retain": false,
+    "broker": "mqtt-broker",
+    "x": 430,
+    "y": 460,
+    "wires": []
+  },
+
+  {
+    "id": "mqtt-broker",
+    "type": "mqtt-broker",
+    "name": "Mosquitto Local",
+    "broker": "mosquitto",
+    "port": "1883",
+    "clientid": "nodered-agrosat",
+    "autoConnect": true,
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true
+  },
+
+  {
+    "id": "influxdb-config",
+    "type": "influxdb",
+    "hostname": "influxdb",
+    "port": "8086",
+    "protocol": "http",
+    "database": "agrosat",
+    "name": "InfluxDB AgroSat",
+    "usetls": false,
+    "tls": "",
+    "influxdbVersion": "2.0",
+    "url": "http://influxdb:8086",
+    "rejectUnauthorized": false,
+    "org": "fiap",
+    "bucket": "agrosat",
+    "token": "agrosat-super-secret-token-2026"
+  }
+]

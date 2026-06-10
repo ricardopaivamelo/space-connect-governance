@@ -1,0 +1,163 @@
+{
+  "title": "AgroSat Monitor - Dashboard IoT",
+  "uid": "agrosat-main",
+  "version": 1,
+  "schemaVersion": 38,
+  "refresh": "5s",
+  "time": { "from": "now-1h", "to": "now" },
+  "timezone": "America/Sao_Paulo",
+  "tags": ["iot", "agrosat", "fiap"],
+  "panels": [
+    {
+      "id": 1,
+      "title": "🌡️ Temperatura (°C)",
+      "type": "gauge",
+      "gridPos": { "h": 8, "w": 4, "x": 0, "y": 0 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius",
+          "min": -10, "max": 50,
+          "thresholds": {
+            "steps": [
+              { "value": null, "color": "blue" },
+              { "value": 5, "color": "green" },
+              { "value": 30, "color": "yellow" },
+              { "value": 35, "color": "red" }
+            ]
+          }
+        }
+      },
+      "targets": [{
+        "datasource": "InfluxDB-AgroSat",
+        "query": "from(bucket: \"agrosat\") |> range(start: -5m) |> filter(fn: (r) => r._measurement == \"telemetria\" and r._field == \"temperatura\") |> last()"
+      }]
+    },
+    {
+      "id": 2,
+      "title": "💧 Umidade do Ar (%)",
+      "type": "gauge",
+      "gridPos": { "h": 8, "w": 4, "x": 4, "y": 0 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0, "max": 100,
+          "thresholds": {
+            "steps": [
+              { "value": null, "color": "red" },
+              { "value": 20, "color": "yellow" },
+              { "value": 40, "color": "green" },
+              { "value": 80, "color": "blue" }
+            ]
+          }
+        }
+      },
+      "targets": [{
+        "datasource": "InfluxDB-AgroSat",
+        "query": "from(bucket: \"agrosat\") |> range(start: -5m) |> filter(fn: (r) => r._measurement == \"telemetria\" and r._field == \"umidade_ar\") |> last()"
+      }]
+    },
+    {
+      "id": 3,
+      "title": "🌱 Umidade do Solo (%)",
+      "type": "gauge",
+      "gridPos": { "h": 8, "w": 4, "x": 8, "y": 0 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0, "max": 100,
+          "thresholds": {
+            "steps": [
+              { "value": null, "color": "red" },
+              { "value": 25, "color": "yellow" },
+              { "value": 40, "color": "green" },
+              { "value": 85, "color": "blue" }
+            ]
+          }
+        }
+      },
+      "targets": [{
+        "datasource": "InfluxDB-AgroSat",
+        "query": "from(bucket: \"agrosat\") |> range(start: -5m) |> filter(fn: (r) => r._measurement == \"telemetria\" and r._field == \"umidade_solo\") |> last()"
+      }]
+    },
+    {
+      "id": 4,
+      "title": "☀️ Luminosidade (%)",
+      "type": "gauge",
+      "gridPos": { "h": 8, "w": 4, "x": 12, "y": 0 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0, "max": 100,
+          "thresholds": {
+            "steps": [
+              { "value": null, "color": "dark-blue" },
+              { "value": 15, "color": "semi-dark-orange" },
+              { "value": 50, "color": "super-light-yellow" }
+            ]
+          }
+        }
+      },
+      "targets": [{
+        "datasource": "InfluxDB-AgroSat",
+        "query": "from(bucket: \"agrosat\") |> range(start: -5m) |> filter(fn: (r) => r._measurement == \"telemetria\" and r._field == \"luminosidade\") |> last()"
+      }]
+    },
+    {
+      "id": 5,
+      "title": "🛰️ NDVI Satélite",
+      "type": "stat",
+      "gridPos": { "h": 8, "w": 4, "x": 16, "y": 0 },
+      "fieldConfig": {
+        "defaults": {
+          "min": -1, "max": 1,
+          "thresholds": {
+            "steps": [
+              { "value": null, "color": "brown" },
+              { "value": 0.2, "color": "yellow" },
+              { "value": 0.5, "color": "green" },
+              { "value": 0.8, "color": "dark-green" }
+            ]
+          }
+        }
+      },
+      "targets": [{
+        "datasource": "InfluxDB-AgroSat",
+        "query": "from(bucket: \"agrosat\") |> range(start: -5m) |> filter(fn: (r) => r._measurement == \"satelite\" and r._field == \"ndvi\") |> last()"
+      }]
+    },
+    {
+      "id": 6,
+      "title": "📈 Temperatura ao Longo do Tempo",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "fieldConfig": {
+        "defaults": { "unit": "celsius", "color": { "mode": "palette-classic" } }
+      },
+      "targets": [{
+        "datasource": "InfluxDB-AgroSat",
+        "query": "from(bucket: \"agrosat\") |> range(start: -1h) |> filter(fn: (r) => r._measurement == \"telemetria\" and r._field == \"temperatura\")"
+      }]
+    },
+    {
+      "id": 7,
+      "title": "💧 Umidades ao Longo do Tempo",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "targets": [{
+        "datasource": "InfluxDB-AgroSat",
+        "query": "from(bucket: \"agrosat\") |> range(start: -1h) |> filter(fn: (r) => r._measurement == \"telemetria\" and (r._field == \"umidade_ar\" or r._field == \"umidade_solo\"))"
+      }]
+    },
+    {
+      "id": 8,
+      "title": "🚨 Últimos Alertas",
+      "type": "logs",
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 16 },
+      "targets": [{
+        "datasource": "InfluxDB-AgroSat",
+        "query": "from(bucket: \"agrosat\") |> range(start: -1h) |> filter(fn: (r) => r._measurement == \"alertas\")"
+      }]
+    }
+  ]
+}

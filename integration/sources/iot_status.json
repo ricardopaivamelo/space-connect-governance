@@ -1,8 +1,17 @@
 {
   "module": "iot",
-  "data_origin": "not_received",
-  "description": "Physical Computing / IoT: modulo nao recebido ate o fechamento da entrega GBA. Slot arquitetural reservado: ESP32/sensores -> plataforma IoT -> eventos -> sensor neuromorfico / RPA.",
-  "received": false,
+  "data_origin": "received_late",
+  "description": "Physical Computing / IoT: projeto AgroSat Monitor recebido em 09/06/2026 as 22h23, apos o fechamento do pacote integrado. Codigo auditado pela equipe de integracao; execucao nao verificada.",
+  "received": true,
+  "received_at": "2026-06-09T22:23:00-03:00",
+  "audit_summary": "Firmware ESP32 (C++, 612 linhas) simulado no Wokwi: DHT22, LDR e potenciometros simulando umidade do solo e chuva; publica JSON via MQTT em 5 topicos (agrosat/*). Stack docker-compose com Mosquitto, Node-RED, InfluxDB 2.7 e Grafana 10.4; fluxo Node-RED grava telemetria no InfluxDB e envia alertas ao Telegram (token por variavel de ambiente).",
+  "audit_issues": [
+    "nenhuma evidencia de execucao no pacote (sem prints, dados gravados ou video)",
+    "bug de caminhos relativos no docker-compose impede o auto-provisionamento do datasource/dashboard do Grafana",
+    "broker no firmware (host.docker.internal:1884) inconsistente com o README (broker.hivemq.com)",
+    "video pitch exigido pelo enunciado da disciplina ausente no pacote",
+    "credenciais dev hardcoded da stack local (sem acesso externo); mover para .env"
+  ],
   "planned_position": "fonte de telemetria anterior ao processamento neuromorfico e ao RPA",
   "current_substitute": "telemetria simulada presente nos demais modulos (CSVs do RPA e dataset do sensor neuromorfico)"
 }
